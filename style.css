@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #04061a;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+body.fase-1 { background-image: url('./img/fase1.png'); }
+body.fase-2 { background-image: url('./img/fase2.png'); }
+body.fase-3 { background-image: url('./img/fase3.png'); }
+
+body.fase-1,
+body.fase-2,
+body.fase-3 {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+canvas {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+}
