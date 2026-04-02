@@ -365,8 +365,8 @@ class Boss extends Obj {
     super(x, y, w, h, a);
     this.img = new Image();
     this.img.src = a;
-    this.vida = 60
-    this.vidaMax = 60;
+    this.vida = 50
+    this.vidaMax = 50;
     this.vel = 2.5;
     this.dir = 1;
     this.ativo = false;

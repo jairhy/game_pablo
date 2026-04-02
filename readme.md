@@ -12,6 +12,28 @@
 
 ## 2. Visão Geral do Sistema
 
+### Estrutura de Pastas
+
+```
+game_pablo/
+├── index.html
+├── index.js
+├── style.css
+├── pablo.html
+├── readme.md
+├── banner.png
+├── background3.jpg
+├── jk1.png
+├── jk2.png
+├── jk3.png
+├── diagrama_caso_de_uso.png
+├── diagrama_classe.png
+├── diagrama_sequencia.png
+├── diagramas_UML.asta
+├── img/
+└── models/
+```
+
 ### Descrição
 
 Este software é um game de ação espacial (Shoot 'em up) desenvolvido em JavaScript puro utilizando a API Canvas. O jogador controla naves em um ambiente bizarro e perigoso.
@@ -80,7 +102,7 @@ O jogo suporta modo cooperativo local:
 
 ---
 
-### 🛠 Especificações de Engenharia (RNFs)
+## 7. Especificações de Engenharia (RNFs)
 
 - **Tecnologia (RNF01):** Desenvolvido em **JavaScript Moderno (ES6+)** com Programação Orientada a Objetos, sem necessidade de compiladores.
 - **Portabilidade (RNF02):** Execução nativa via **HTML5 Canvas**, garantindo que o jogo rode em qualquer sistema operacional via navegador.

@@ -68,6 +68,8 @@ som_explosao.volume = 0.6;
 
 let som_vitoria = new Audio("./img/vitoria.mp3");
 som_vitoria.volume = 0.8;
+som_vitoria.loop = true;
+
 
 let som_tiro_boss = new Audio("./img/laser_boss.mp3");
 som_tiro_boss.volume = 0.5;

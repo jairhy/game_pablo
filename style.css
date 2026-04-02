@@ -28,3 +28,12 @@ canvas {
     width: 100vw;
     height: 100vh;
 }
+
+.banner {
+    background-image: url('./banner.png');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+}
