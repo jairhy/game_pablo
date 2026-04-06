@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Bizarre Adventures of Pablo and Argemilio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="shortcut icon" href="./img/pinguim_icon.png" type="image/x-icon">
+  <script src="./inicial.js" defer></script>
+</head>
+<body>
+ 
+  <div class="overlay"></div>
+ 
+  <div class="screen" id="mainScreen">
+    <nav class="menu">
+      <button class="menu-btn play" onclick="iniciarJogo()">&#9658; JOGAR</button>
+      <button class="menu-btn"      onclick="openModal('instrucoes')">&#9672; INSTRUCOES</button>
+      <button class="menu-btn"      onclick="openModal('sobre')">&#10022; SOBRE</button>
+    </nav>
+  </div>
+ 
+  <!-- Modal Instrucoes -->
+  <div class="modal-overlay" id="modal-instrucoes">
+    <div class="modal">
+      <button class="close-btn" onclick="closeModal('instrucoes')">X FECHAR</button>
+      <h2>INSTRUCOES</h2>
+      <p>Dois jogadores cooperam para sobreviver a meteoros e derrotar o temido <strong style="color:#FF4466">John Cracker</strong>!</p>
+      <p>Destrua meteoros para ganhar pontos. Ao atingir <strong style="color:var(--yellow)">200 pts</strong> avanca para a Fase 2, e com <strong style="color:var(--yellow)">400 pts</strong> a Fase 3, onde o Boss aparece.</p>
+      <p>Colete coracoes para recuperar 2 HP. Cuidado com as explosoes e os lasers do Boss!</p>
+      <br>
+      <table class="controls-table">
+        <tr><th colspan="2">JOGADOR 1 - Pablo</th></tr>
+        <tr><td>Mover</td><td><kbd>W</kbd> / <kbd>S</kbd></td></tr>
+        <tr><td>Atirar laser</td><td><kbd>F</kbd></td></tr>
+      </table>
+      <br>
+      <table class="controls-table">
+        <tr><th colspan="2">JOGADOR 2 - Argemilio</th></tr>
+        <tr><td>Mover</td><td><kbd>cima</kbd> / <kbd>baixo</kbd></td></tr>
+        <tr><td>Atirar laser</td><td><kbd>Espaco</kbd></td></tr>
+      </table>
+      <br>
+      <p style="color:rgba(255,255,255,0.45);font-size:13px;">Dica: fique de olho no cooldown do laser!</p>
+    </div>
+  </div>
+ 
+  <!-- Modal Sobre -->
+  <div class="modal-overlay" id="modal-sobre">
+    <div class="modal">
+      <button class="close-btn" onclick="closeModal('sobre')">X FECHAR</button>
+      <h2>SOBRE</h2>
+      <div class="sobre-avatar">&#x1F427;</div>
+      <p><strong style="color:var(--yellow);font-family:'Press Start 2P',monospace;font-size:15px;">Jair hyan Fernandes da Silva</strong></p>
+      <p style="margin-top:8px;color:rgba(255,255,255,0.6);">Desenvolvedor &amp; Game Designer</p>
+      <br>
+      <p>Criei este jogo como projeto pessoal, combinando programacao criativa e diversao. The Bizarre Adventures of Pablo and Argemilio e um shooter cooperativo para dois jogadores, feito do zero com pixel art.</p>
+      <br>
+      <p>
+        <span class="sobre-tag">JavaScript</span>
+        <span class="sobre-tag">Pixel Art</span>
+        <span class="sobre-tag">HTML</span>
+        <span class="sobre-tag">CSS</span>
+      </p>
+      <br>
+      <p style="color:rgba(255,255,255,0.4);font-size:13px;">jair_h_silva@estudante.sesisenai.org.br</p>
+    </div>
+  </div>
+ 
+  <div class="version-tag">v1.0.0</div>
+
+ 
+</body>
+</html>

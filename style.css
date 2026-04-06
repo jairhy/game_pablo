@@ -1,0 +1,294 @@
+/* ── Reset ── */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ── Variáveis ── */
+:root {
+    --orange:     #FF8C00;
+    --yellow:     #FFD000;
+    --teal:       #00C8C8;
+    --dark:       #080818;
+    --panel:      rgba(6, 3, 22, 0.82);
+    --border:     rgba(255, 160, 0, 0.4);
+}
+
+/* ── Body base ── */
+body {
+    background-color: var(--dark);
+
+    /* ↓ coloque o nome da sua imagem aqui ↓ */
+    background-image: url('./img/tela_inicial.png');
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Press Start 2P', monospace;
+    color: #fff;
+    image-rendering: pixelated;
+}
+
+/* ── Fundos por fase (jogo) ── */
+body.fase-1 { background-image: url('./img/fase1.png'); }
+body.fase-2 { background-image: url('./img/fase2.png'); }
+body.fase-3 { background-image: url('./img/fase3.png'); }
+
+/* ── Canvas do jogo ── */
+canvas#des {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* ════════════════════════════════
+   TELA INICIAL
+   ════════════════════════════════ */
+
+/* Gradiente suave só na parte de baixo, pra destacar o menu sem escurecer a arte */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        transparent 45%,
+        rgba(6, 3, 22, 0.7) 72%,
+        rgba(6, 3, 22, 0.92) 100%
+    );
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Container — menu centralizado verticalmente na metade inferior */
+.screen {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding-top: 52vh;
+}
+
+/* Título escondido — já está desenhado na imagem */
+.logo-wrap { display: none; }
+
+/* Menu */
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: min(480px, 70vw);
+    animation: fadeUp 0.8s 0.15s cubic-bezier(.22,1,.36,1) both;
+}
+
+.menu-btn {
+    position: relative;
+    flex: 1;
+    padding: 20px 16px;
+    background: var(--panel);
+    border: 2px solid var(--border);
+    border-radius: 0;
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(11px, 1.2vw, 15px);
+    letter-spacing: 0.15em;
+    color: #fff;
+    cursor: pointer;
+    overflow: hidden;
+    text-align: center;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: border-color 0.2s, color 0.2s, transform 0.12s, background 0.2s;
+}
+.menu-btn::after {
+    content: '';
+    position: absolute;
+    left: -60%;
+    top: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,200,80,0.18), transparent);
+    transition: left 0.4s ease;
+}
+.menu-btn:hover {
+    border-color: var(--yellow);
+    color: var(--yellow);
+    transform: translateY(-4px);
+    background: rgba(255, 140, 0, 0.16);
+}
+.menu-btn:hover::after { left: 120%; }
+.menu-btn:active       { transform: translateY(-2px) scale(0.97); }
+
+.menu-btn.play {
+    border-color: var(--orange);
+    color: var(--yellow);
+    font-size: clamp(13px, 1.4vw, 17px);
+    padding: 24px 16px;
+    box-shadow: 0 0 22px rgba(255,140,0,0.25);
+}
+.menu-btn.play:hover {
+    background: rgba(255, 140, 0, 0.24);
+    box-shadow: 0 0 36px rgba(255,200,0,0.4);
+    color: #fff;
+    border-color: var(--yellow);
+}
+
+/* ── Modais ── */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(4, 2, 18, 0.85);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+.modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+}
+.modal {
+    background: rgba(8, 4, 30, 0.97);
+    border: 2px solid var(--border);
+    padding: 48px 52px;
+    width: min(700px, 90vw);
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+    transform: translateY(30px);
+    transition: transform 0.35s cubic-bezier(.22,1,.36,1);
+    scrollbar-width: thin;
+    scrollbar-color: var(--orange) transparent;
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+
+.modal h2 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(13px, 1.6vw, 18px);
+    color: var(--yellow);
+    margin-bottom: 28px;
+    letter-spacing: 0.1em;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 14px;
+    text-shadow: 0 0 14px rgba(255,200,0,0.45);
+}
+.modal p,
+.modal li {
+    font-family: 'Exo 2', sans-serif;
+    font-size: clamp(13px, 1.4vw, 15px);
+    line-height: 1.8;
+    color: rgba(230, 220, 255, 0.9);
+    margin-bottom: 10px;
+}
+.modal ul  { padding-left: 20px; }
+.modal li  { margin-bottom: 8px; }
+
+.modal .close-btn {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: 2px solid var(--border);
+    color: var(--orange);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.modal .close-btn:hover {
+    background: rgba(255, 140, 0, 0.15);
+    color: #fff;
+}
+
+/* Tabela de controles */
+.controls-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+.controls-table th,
+.controls-table td {
+    padding: 10px 16px;
+    text-align: left;
+    font-size: clamp(11px, 1.2vw, 14px);
+    border-bottom: 1px solid rgba(255, 160, 0, 0.15);
+}
+.controls-table th {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(9px, 0.9vw, 11px);
+    letter-spacing: 0.08em;
+    color: var(--teal);
+    background: rgba(255, 160, 0, 0.07);
+}
+.controls-table td:first-child {
+    color: var(--yellow);
+    font-weight: 600;
+}
+kbd {
+    display: inline-block;
+    background: rgba(255, 160, 0, 0.12);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    color: var(--yellow);
+    letter-spacing: 0.05em;
+}
+
+/* Sobre */
+.sobre-avatar {
+    width: 80px;
+    height: 80px;
+    border: 2px solid var(--orange);
+    background: rgba(255, 140, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(255, 140, 0, 0.25);
+}
+.sobre-tag {
+    display: inline-block;
+    background: rgba(255, 140, 0, 0.12);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    font-size: 10px;
+    color: var(--yellow);
+    letter-spacing: 0.08em;
+    margin: 4px 4px 0 0;
+    font-family: 'Press Start 2P', monospace;
+}
+
+/* Tag de versão */
+.version-tag {
+    position: fixed;
+    bottom: 14px;
+    right: 20px;
+    z-index: 10;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    color: rgba(255, 160, 0, 0.35);
+    letter-spacing: 0.1em;
+}
+
+/* ── Animações ── */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsivo ── */
+@media (max-height: 600px) {
+    .screen   { padding-bottom: 3vh; }
+    .menu-btn { padding: 10px 8px; }
+}
